@@ -62,7 +62,7 @@ git checkout $BRANCH_NAME
 git pull origin $HEAD_BRANCH || failMerge $GITHUB_TOKEN $PR_NUMBER "Fail to Merge."
 git push
 
-curl -X POST -s --data-raw "{\"event_type\": [\"${BRANCH_NAME}\"] }" -H "${AUTH_HEADER}" -H "${API_HEADER}" \
+curl -X POST -s --data-raw "{\"event_type\": \"${BRANCH_NAME}\" }" -H "${AUTH_HEADER}" -H "${API_HEADER}" \
   "${URI}/repos/$REPO_FULLNAME/dispatches"
 
 
