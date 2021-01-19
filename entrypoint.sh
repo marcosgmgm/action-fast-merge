@@ -60,7 +60,7 @@ git fetch origin $HEAD_BRANCH
 git fetch origin $BRANCH_NAME || failMerge $GITHUB_TOKEN $PR_NUMBER "Branch Not Found."
 git checkout $BRANCH_NAME
 git pull origin $HEAD_BRANCH || failMerge $GITHUB_TOKEN $PR_NUMBER "Fail to Merge."
-git push
+git push origin $BRANCH_NAME
 
 LABEL_NAME="FAST-MERGED"
 label_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
