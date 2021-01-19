@@ -60,10 +60,11 @@ git fetch origin $HEAD_BRANCH
 git fetch origin $BRANCH_NAME || failMerge $GITHUB_TOKEN $PR_NUMBER "Branch Not Found."
 git checkout $BRANCH_NAME
 git pull origin $HEAD_BRANCH || failMerge $GITHUB_TOKEN $PR_NUMBER "Fail to Merge."
-echo $(uuidgen) > fast-merge-version.txt
-git add .
-git commit -m "fast merge version"
 git push
+
+curl -X POST -s --data-raw "{\"event_type\": [\"${BRANCH_NAME}\"] }" -H "${AUTH_HEADER}" -H "${API_HEADER}" \
+  "${URI}/repos/$REPO_FULLNAME/dispatches"
+
 
 LABEL_NAME="FAST-MERGED"
 label_resp=$(curl -X GET -s -H "${AUTH_HEADER}" -H "${API_HEADER}" \
